@@ -74,6 +74,11 @@ public class UserService {
         return users;
     }
 
+    public Userp addUser(Userp user) {
+        Userp user1 = new Userp(user.getName(),user.getAge());
+        return userpRepository.save(user);
+    }
+
 
 
 }

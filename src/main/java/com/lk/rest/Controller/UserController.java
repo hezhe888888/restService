@@ -1,6 +1,7 @@
 package com.lk.rest.Controller;
 
 
+import com.lk.rest.Client.UserpClient;
 import com.lk.rest.Model.Userp;
 import com.lk.rest.Service.UserService;
 import com.lk.rest.Util.ListUtil;
@@ -17,6 +18,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    UserpClient userpClient;
 
     @GetMapping("/id/{id}")
     @ResponseBody
@@ -73,5 +77,16 @@ public class UserController {
     @DeleteMapping("/delete")
     public void deleteUser(@RequestBody Userp user){
         userService.delete(user);
+    }
+
+    @GetMapping("/info/{id}")
+    public String getUserInfo(@PathVariable(value = "id") int id)
+    {
+        return userpClient.getMailById(id);
+    }
+
+    @PostMapping("/add")
+    public Userp addUser(@RequestBody Userp user) {
+        return userService.addUser(user);
     }
 }
