@@ -39,11 +39,13 @@ public class UserService {
         if (user.getId() >= 0) {
             Userp existingUser = userpRepository.findById(user.getId());
             if (null !=existingUser) {
+                existingUser.setName(user.getName());
+                existingUser.setAge(user.getAge());
                 existingUser.setUpdatedAt(nowDate);
-                userpRepository.save(existingUser);
+                return userpRepository.save(existingUser);
             }else {
                 user.setCreatedAt(nowDate);
-                userpRepository.save(user);
+                return userpRepository.save(user);
             }
         }
         return null;
