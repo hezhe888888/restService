@@ -1,0 +1,30 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:9.4
+    container_name: postgres6
+    ports:
+      - 5435:5432
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB:demotestdb
+    restart: unless-stopped
+
+  usermanageapp:
+    build:
+      context: .
+    image: demonewimg
+    environment:
+      HOST: 8080
+      DB_HOST: localhost
+      DB_USER: postgres
+      DB_PASS: password
+      DB_NAME: demotestdb
+    container_name: demoNewService
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+    links:
+      - postgres
